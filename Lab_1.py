@@ -33,10 +33,10 @@ def Xn(tab, x0_dx):
             xnt[i].append(round(xn, 4))
     return xnt
 
-a0 = 4
-a1 = 6
-a2 = 9
-a3 = 13
+a0 = rndm.randint(17, (17*2))
+a1 = rndm.randint(17, (17*2))
+a2 = rndm.randint(17, (17*2))
+a3 = rndm.randint(17, (17*2))
 
 tab = Table(a0, a1, a2, a3)
 for i in range(len(tab)):
