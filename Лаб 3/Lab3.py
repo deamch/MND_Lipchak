@@ -3,6 +3,9 @@ from numpy import linalg as lg
 import math as mt
 from pprint import pprint
 
+from numpy.random import seed
+from scipy.stats import t
+
 x1_min = 20
 x1_max = 70
 x2_min = 25
@@ -19,6 +22,7 @@ y_min = 200 + round((x1_min + x2_min + x3_min)/3)
 y_max = 200 + round((x1_max + x2_max + x3_max)/3)
 print("y_min = "+str(y_min), "y_max = "+str(y_max))
 print("")
+
 mp = [["x0_ " + "x1_" , "x2_ " + "x3_" ],
            [1, -1, -1, -1 ],
            [1, -1, +1, +1 ],
@@ -134,9 +138,11 @@ t2 = abs(bi2)/Sbs
 t3 = abs(bi3)/Sbs
 print("t0="+str(round(t0, 3))+" t1="+str(round(t1, 3))+" t2="+str(round(t2, 3))+" t3="+str(round(t3,3)))
 print("")
+print("\033[1m\033[4mКритерій Стюдента по методичці\033[0m")
 f3 = f1*f2
 print("f3 = "+str(f3))
 t_tab = 2.306
+print("T_tab = {!s}".format(t_tab))
 if t0>t_tab:
     print(" t0>t_tab")
 if t3>t_tab:
@@ -147,6 +153,25 @@ if t2<t_tab:
     print(" t2<t_tab")
 print("")
 print("b1, b2 коефіцієнти рівняння регресії приймаємо незначними \nпри рівні значимості 0.05,(виключаються з рівняння)")
+print("")
+print("\033[1m\033[4mКритерій Стюдента через Scipy.stats.t.ppf\033[0m")
+seed(1)
+alpha = 0.05
+df = len(e1) + len(e2) + len(e3) + len(e4) -4       #Число степеней свободы
+cv = t.ppf(1.0 - alpha/2, df)                       #Критическое значение
+print("CV = {!s}, df = {!s}".format(cv, df))
+if t0>cv:
+    print(" t0>cv")
+if t3>cv:
+    print(" t3>cv")
+if t1<cv:
+    print(" t1<cv")
+if t2<cv:
+    print(" t2<cv")
+print("")
+print("b1, b2 коефіцієнти рівняння регресії приймаємо незначними \nпри рівні значимості 0.05,(виключаються з рівняння)")
+
+
 y1_fin = b0 + b3*mt2[1][2]
 y2_fin = b0 + b3*mt2[2][2]
 y3_fin = b0 + b3*mt2[3][2]
