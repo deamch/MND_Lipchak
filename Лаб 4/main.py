@@ -3,6 +3,7 @@ import numpy as np
 from numpy.linalg import solve
 from pprint import pprint
 from scipy.stats import f, t
+import time
 
 N = 8
 m = 8
@@ -114,7 +115,7 @@ print("")
 print("Середні значення відгуку за рядками:", "\n", +aver_y[0], aver_y[1], aver_y[2], aver_y[3],
       aver_y[4], aver_y[5], aver_y[6], aver_y[7])
 print("")
-
+start1 = time.time()
 disp = []
 for i in range(len(mat_y)):
     a = 0
@@ -129,8 +130,12 @@ if Gp < Gt:
 else:
     print("\033[1m\033[30m\033[41m{}\033[0m".format("Дисперсія неоднорідна"))
 print("")
+end1 = time.time()
+res1 = end1 - start1
+print("time Kohena = "+ str(res1))
 
 print("Перевірка за Стьюдентом")
+start2 = time.time()
 sb = sum(disp) / len(disp)
 sbs = (sb / (m * 3)) ** 0.5
 
@@ -161,9 +166,12 @@ for i in range(N):
                 + res[5] * x1x3_norm[i] + res[6] * x2x3_norm[i] + res[7] * x1x2x3_norm[i])
 print("Значення з отриманими коефіцієнтами:", y_st)
 print("")
-
+end2 = time.time()
+res2 = end2 - start2
+print("time studenta x1000 = "+ str(1000*res2))
 
 print("Перевірка за Фішером")
+start3 = time.time()
 S_ad = mm * sum([(y_st[i] - aver_y[i]) ** 2 for i in range(8)]) / (N - d)
 Fp = S_ad / sb
 F4 = N - d
@@ -171,3 +179,6 @@ if Fp < f.ppf(q=0.95, dfn=F4, dfd=F3):
     print("\033[1m\033[30m\033[42m{}\033[0m".format("При рівні значимості 0.05 рівняння регресії адекватне"))
 else:
     print("\033[1m\033[30m\033[41m{}\033[0m".format("При рівні значимості 0.05 рівняння регресії неадекватне"))
+end3 = time.time()
+res3 = end3 - start3
+print("time Fishera = "+ str(res3))
