@@ -3,6 +3,7 @@ import numpy as np
 from scipy.stats import f, t
 from pprint import pprint
 from sklearn import linear_model
+import time
 
 m = 3
 x1_min = -7
@@ -99,6 +100,7 @@ print("Рівняння регресії зі знайденими коефіц�
 print("")
 
 print("\033[1m\033[30m\033[43m{}\033[0m".format("Перевірка за критерієм Кохрена"))
+start1 = time.time()
 print("Середні значення відгуку за рядками\n", +aver_y[0], aver_y[1], aver_y[2], aver_y[3],
       aver_y[4], aver_y[5], aver_y[6], aver_y[7], aver_y[8], aver_y[9], aver_y[10],
       aver_y[11], aver_y[12], aver_y[13], aver_y[14])
@@ -116,8 +118,12 @@ if Gp < Gt:
 else:
     print("\033[1m\033[30m\033[41m{}\033[0m".format("Дисперсія неоднорідна"))
 print("")
+end1 = time.time()
+res1 = end1 - start1
+print("time Kohena = "+ str(res1))
 
 print("\033[1m\033[30m\033[43m{}\033[0m".format("Перевірка значущості коефіцієнтів за критерієм Стьюдента"))
+start2 = time.time()
 sb = sum(disp) / len(disp)
 sbs = (sb / (15 * m)) ** 0.5
 
@@ -147,8 +153,12 @@ for i in range(15):
                 x2x2_norm[i] + res[10] * x3x3_norm[i])
 print("Значення з отриманими коефіцієнтами:\n", y_st)
 print("")
+end2 = time.time()
+res2 = end2 - start2
+print("time studenta x1000 = "+ str(1000*res2))
 
 print("\033[1m\033[30m\033[43m{}\033[0m".format("Перевірка адекватності за критерієм Фішера"))
+start3 = time.time()
 Sad = m * sum([(y_st[i] - aver_y[i]) ** 2 for i in range(15)]) / (n - d)
 Fp = Sad / sb
 F4 = n - d
@@ -157,3 +167,6 @@ if Fp < f.ppf(q=0.95, dfn=F4, dfd=F3):
     print("\033[1m\033[30m\033[42m{}\033[0m".format("При рівні значимості 0.05 рівняння регресії адекватне"))
 else:
     print("\033[1m\033[30m\033[41m{}\033[0m".format("При рівні значимості 0.05 рівняння регресії неадекватне"))
+end3 = time.time()
+res3 = end3 - start3
+print("time Fishera = "+ str(res3))
