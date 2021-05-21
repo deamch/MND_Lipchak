@@ -14,7 +14,7 @@ x2_max = 65
 x3_min = 25
 x3_max = 35
 
-coef_1=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+coef_1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 while True:
     def function(x_1, x_2, x_3, c):
@@ -22,7 +22,6 @@ while True:
             5.4 * x_3 * x_3*c[6] + 5.7 * x_1 * x_2*c[7] + 0.1 * x_1 * x_3*c[8] + 8.8 * x_2 * x_3*c[9] + 0.1 * x_1 * x_2\
             * x_3*c[10] + randrange(0, 10) - 5
         return y
-
 
     x01 = (x1_max + x1_min) / 2
     x02 = (x2_max + x2_min) / 2
@@ -48,7 +47,7 @@ while True:
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     x1 = [x1_min, x1_min, x1_min, x1_min, x1_max, x1_max, x1_max, x1_max, -1.73 * x1_delt + x01, 1.73 * x1_delt + x01,
-          x01,x01, x01, x01, x01]
+          x01, x01, x01, x01, x01]
     x2 = [x2_min, x2_min, x2_max, x2_max, x2_min, x2_min, x2_max, x2_max, x02, x02, -1.73 * x2_delt + x02, 1.73 *
           x2_delt + x02, x02, x02, x02]
     x3 = [x3_min, x3_max, x3_min, x3_max, x3_min, x3_max, x3_min, x3_max, x03, x03, x03, x03, -1.73 * x3_delt + x03,
@@ -158,7 +157,8 @@ while True:
     for k in range(n):
         y_i[k] = beta[0] + beta[1] * list_for_a[k][0] + beta[2] * list_for_a[k][1] + beta[3] * list_for_a[k][2] + \
                  beta[4] * list_for_a[k][3] + beta[5] * list_for_a[k][4] + beta[6] * list_for_a[k][5] + beta[7] * \
-                 list_for_a[k][6] + beta[8] * list_for_a[k][7] + beta[9] * list_for_a[k][8] + beta[10] * list_for_a[k][9]
+                 list_for_a[k][6] + beta[8] * list_for_a[k][7] + beta[9] * list_for_a[k][8] + beta[10] *\
+                 list_for_a[k][9]
     for i in range(n):
         print("{:.3f}".format(y_i[i]))
     print("")
